@@ -5,13 +5,15 @@ import { Observable } from 'rxjs';
 
 
 interface Employee {
-  FirstName: string,
-  LastName: string,
-  Location: string
+  firstname: string,
+  lastname: string,
+  location: string
 }
 
 interface EmployeeViewModel {
-  DisplayName: string
+  displayName: string,
+  responsibilities: string
+
 }
 
 @Component({
@@ -38,14 +40,9 @@ export class HomeComponent {
       this.buttonName = "Show Employee Roles";
   };
   public getEmployee(employees) {
-/*    let params = new HttpParams();
-    params = params.append('data', employees);*/
-/*    this.http.get<Employee[]>('/api/employee').subscribe(data => {
-      this.employees = data;
-    });*/
-
     this.http.post<any>('/api/employee', { employees: employees }).subscribe(res => {
-      this.employeesViewModel.DisplayName = res.displayName;
+      this.employeesViewModel.displayName = res.displayName;
+      this.employeesViewModel.responsibilities = res.responsibilities;
     });
   }
 

@@ -9,7 +9,7 @@ namespace WebApplication5.Model
     {
         public string FirstName { get; set; } = "Moe";
         public string LastName { get; set; } = "Tah";
-        public string Location { get; set; } = "Philadelphia";
+        public string Location { get; set; } = "Store";
 
     }
 }

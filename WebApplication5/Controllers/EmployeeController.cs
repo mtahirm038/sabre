@@ -52,7 +52,11 @@ namespace WebApplication5.Controllers
             {
                 DisplayName = employee.FirstName + " " + employee.LastName
             };
-/*            if (employee.Location == "Store")
+            if (viewModel.Responsibilities == null)
+            {
+                viewModel.Responsibilities = new List<string>();
+            }
+            if (employee.Location == "Store")
             {
                 viewModel.Responsibilities.Add("Stock Shelves");
                 viewModel.Responsibilities.Add("Customer Service");
@@ -60,7 +64,7 @@ namespace WebApplication5.Controllers
             else
             {
                 viewModel.Responsibilities.Add("Load Warehouse Trucks");
-            }*/
+            }
             return viewModel;
         }
 
