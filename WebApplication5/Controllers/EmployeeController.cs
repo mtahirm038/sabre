@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication5.Model;
+using WebApplication5.ViewModel;
 
 namespace WebApplication5.Controllers
 {
@@ -14,16 +15,28 @@ namespace WebApplication5.Controllers
     {
         // GET: api/Employee
         [HttpGet]
-        public IEnumerable<Employee> Get()
+        public EmployeeViewModel Get(Employee employee)
         {
-            List<Employee> oEmployess = new List<Employee>() {
-                new Employee(){FirstName = "jen", LastName="Lee", Location= "Philadelphia"},
-                new Employee(){FirstName = "Muhammad", LastName="Tahir", Location= "Boston"},
+            /*          Employee e = new Employee();
+                        e.FirstName = "Muhammad";
+                        e.LastName = "Tahir";
+                        e.Location = "Philly";*/
+
+            var viewModel = new EmployeeViewModel
+            {
+                DisplayName = employee.FirstName + " " + employee.LastName
             };
-
-            return oEmployess;
+            if (employee.Location == "Store")
+            {
+                viewModel.Responsibilities.Add("Stock Shelves");
+                viewModel.Responsibilities.Add("Customer Service");
+            }
+            else
+            {
+                viewModel.Responsibilities.Add("Load Warehouse Trucks");
+            }
+            return viewModel;
         }
-
         // GET: api/Employee/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
@@ -33,8 +46,22 @@ namespace WebApplication5.Controllers
 
         // POST: api/Employee
         [HttpPost]
-        public void Post([FromBody] string value)
+        public EmployeeViewModel Build(Employee employee)
         {
+            var viewModel = new EmployeeViewModel
+            {
+                DisplayName = employee.FirstName + " " + employee.LastName
+            };
+/*            if (employee.Location == "Store")
+            {
+                viewModel.Responsibilities.Add("Stock Shelves");
+                viewModel.Responsibilities.Add("Customer Service");
+            }
+            else
+            {
+                viewModel.Responsibilities.Add("Load Warehouse Trucks");
+            }*/
+            return viewModel;
         }
 
         // PUT: api/Employee/5
