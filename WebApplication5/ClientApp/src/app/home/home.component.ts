@@ -40,9 +40,13 @@ export class HomeComponent {
       this.buttonName = "Show Employee Roles";
   };
   public getEmployee(employees) {
-    this.http.post<any>('/api/employee', { employees: employees }).subscribe(res => {
+    const promise = this.http.post<any>('/api/employee', { employees: employees }).toPromise();
+    console.log(promise);
+    promise.then((res) => {
       this.employeesViewModel.displayName = res.displayName;
       this.employeesViewModel.responsibilities = res.responsibilities;
+    }).catch((error) => {
+      console.log("Promise rejected with " + JSON.stringify(error));
     });
   }
 

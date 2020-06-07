@@ -7,8 +7,8 @@ namespace WebApplication5.Model
 {
     public class Employee
     {
-        public string FirstName { get; set; } = "Moe";
-        public string LastName { get; set; } = "Tah";
+        public string FirstName { get; set; } = "Muhammad";
+        public string LastName { get; set; } = "Tahir";
         public string Location { get; set; } = "Store";
 
     }
