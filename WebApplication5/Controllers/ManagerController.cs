@@ -8,16 +8,14 @@ namespace WebApplication5.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class ManagerController : ControllerBase
     {
-        // POST: api/Employee
+        // POST: api/Manager
         [HttpPost]
-        public EmployeeViewModel Build(Employee employee)
+        public ManagerViewModel Build(Manager manager)
         {
-            var viewModel = new EmployeeViewModel
-            {
-                DisplayName = employee.FirstName + " " + employee.LastName
-            };
+            var viewModel = new ManagerViewModel();
+            viewModel.DisplayName = manager.FirstName + " " + manager.LastName + " (" + manager.Title + ")";
             if (viewModel.Responsibilities == null)
             {
                 try
@@ -28,18 +26,22 @@ namespace WebApplication5.Controllers
                 {
                     throw ex;
                 }
-
             }
-            if (employee.Location == "Store")
+            if (manager.Location == "Store" && manager.Title == "Sales Manager")
             {
-                viewModel.Responsibilities.Add("Stock Shelves");
+                viewModel.Responsibilities.Add("Oversee Floor");
                 viewModel.Responsibilities.Add("Customer Service");
+            }
+            else if (manager.Location == "Store")
+            {
+                viewModel.Responsibilities.Add("Oversee Floor");
             }
             else
             {
-                viewModel.Responsibilities.Add("Load Warehouse Trucks");
+                viewModel.Responsibilities.Add("Oversee Warehouse");
             }
             return viewModel;
+
         }
     }
 }
